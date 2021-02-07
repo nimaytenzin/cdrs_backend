@@ -1,0 +1,69 @@
+# POST http://localhost:3000/api/plots/add-plot HTTP/1.1
+# content-type: application/json
+
+# {
+#     "fid":2,
+#     "lap_id":1,
+#     "plot_id":"DL-34",
+#     "d_status":"Developed",
+#     "plot_use" : "Residential",
+#     "max_height": "G+2",
+#     "setback_e": "encroached",
+#     "remarks": null
+# # }
+# POST http://localhost:3000/api/footpaths/add-path HTTP/1.1
+# Content-Type: : application/json
+
+# {
+
+#     "fid": 1,
+#     "lap_id":2,
+#     "d_status": "Developed",
+#     "width": 3.5,
+#     "lighting": "Yes",
+#     "friendliness": "yes",
+#     "remarks": null
+# }
+
+# PUT  http://localhost:3000/api/plots/update-plot/1/210  HTTP/1.1
+# content-type: application/json
+
+# {
+#     "fid":210,
+#     "lap_id":1,
+#     "plot_id":"1",
+#     "d_status":"1 Test",
+#     "plot_use" : "1",
+#     "max_height": "G+1",
+#     "setback_e": "1",
+#     "parking":24234,
+#     "remarks": null
+# }
+
+# PUT   http://localhost:3000/api/roads/update-road/58 HTTP/1.1
+# Content-Type: application/json
+
+# {
+#     "fid":58,
+#     "lap_id":1,
+#     "carriage_width": 0,
+#     "d_status": "0",
+#     "drains_left": 0,
+#     "drains_right": 0,
+#     "lanes": 0,
+#     "light_left": 0,
+#     "light_right": 0,
+#     "median": 0,
+#     "parking_left": 0,
+#     "parking_right": 0,
+#     "path_left": 0,
+#     "path_right": 0,
+#     "remarks": "0",
+#     "row": 0
+# }
+
+# PUT http://localhost:3000/api/plots/update-plot/206 HTTP/1.1
+# Content-Type:application/json
+
+PUT http://localhost:3000/api/footpath/set-done/4 HTTP/1.1
+Content-Type: :application/json
