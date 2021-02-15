@@ -9,6 +9,8 @@ const footpathController = require('../controllers/footpathController')
 const imageController = require('../controllers/imageController')
 const {pool} = require('../dbconfig');
 const buildingController = require('../controllers/buildingController');
+const pointController = require('../controllers/pointController');
+const point = require('../src/models/point');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -23,6 +25,12 @@ router.get('/api/get-thromdes',(req, res) =>{
   })
 } )
 router.get('/api/get-laps/:thromde_id', thromdeController.getLapbyThromde)
+
+/*************** POINT FEATURE ROUTES *****************************************/
+router.post('/api/points/add-point', pointController.add)
+router.get('/api/points/get-all/:lap_id', pointController.getByLap)
+router.get('/api/points/get-point/:id', pointController.findSpecific)
+router.put('/api/points/update-point/:id', pointController.update)
 
 /********************** PLOT TABLE ROUTES ******************************************** */
 router.get('/api/plots/get-plot/:fid', plotController.getSpecific)
