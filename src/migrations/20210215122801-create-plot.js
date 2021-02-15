@@ -30,10 +30,10 @@ module.exports = {
         type: Sequelize.STRING
       },
       parking: {
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING
       },
       remarks: {
-        type: Sequelize.TEXT
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,

@@ -18,6 +18,9 @@ module.exports = {
       d_status: {
         type: Sequelize.STRING
       },
+      t_flow:{
+        type: Sequelize.STRING
+      },
       row: {
         type: Sequelize.FLOAT
       },

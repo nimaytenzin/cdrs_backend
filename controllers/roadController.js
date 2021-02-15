@@ -14,6 +14,7 @@ module.exports = {
                 fid: req.body.fid,
                 lap_id: req.body.lap_id,
                 d_status: req.body.d_status,
+                t_flow:req.body.t_flow,
                 row: req.body.row,
                 lanes: req.body.lanes,
                 carriage_width: req.body.carriage_width,
@@ -43,6 +44,7 @@ module.exports = {
                     data
                     .update({
                         d_status: req.body.d_status,
+                        t_flow:req.body.t_flow,
                         row: req.body.row,
                         lanes: req.body.lanes,
                         carriage_width: req.body.carriage_width,

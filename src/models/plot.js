@@ -21,8 +21,8 @@ module.exports = (sequelize, DataTypes) => {
     plot_use: DataTypes.STRING,
     max_height: DataTypes.STRING,
     setback_e: DataTypes.STRING,
-    parking: DataTypes.INTEGER,
-    remarks: DataTypes.TEXT
+    parking: DataTypes.STRING,
+    remarks: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'plot',

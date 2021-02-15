@@ -41,6 +41,10 @@ module.exports = {
                 b_wall:  req.body.b_wall,
                 balcony: req.body.balcony,
                 color:   req.body.color,
+                parking: req.body.parking,
+                res_units: req.body.res_units,
+                com_units: req.body.com_units,
+                off_units: req.body.off_units,
                 remarks: req.body.remarks
             })
             .then((buildingData) => res.status(200).send({data:buildingData, status: 'Success'}))
@@ -69,6 +73,10 @@ module.exports = {
                         b_wall:  req.body.b_wall,
                         balcony: req.body.balcony,
                         color:   req.body.color,
+                        parking: req.body.parking,
+                        res_units: req.body.res_units,
+                        com_units: req.body.com_units,
+                        off_units: req.body.off_units,
                         remarks: req.body.remarks
                     })
                 res.send({status:"success", data:plotData})

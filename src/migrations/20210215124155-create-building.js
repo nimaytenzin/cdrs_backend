@@ -56,6 +56,18 @@ module.exports = {
       color: {
         type: Sequelize.STRING
       },
+      parking: {
+        type: Sequelize.INTEGER
+      },
+      res_units: {
+        type: Sequelize.INTEGER
+      },
+      com_units: {
+        type: Sequelize.STRING
+      },
+      off_units: {
+        type: Sequelize.INTEGER
+      },
       remarks: {
         type: Sequelize.STRING
       },

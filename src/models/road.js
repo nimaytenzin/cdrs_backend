@@ -17,6 +17,7 @@ module.exports = (sequelize, DataTypes) => {
     fid: DataTypes.INTEGER,
     lap_id: DataTypes.INTEGER,
     d_status: DataTypes.STRING,
+    t_flow:DataTypes.STRING,
     row: DataTypes.FLOAT,
     lanes: DataTypes.INTEGER,
     carriage_width: DataTypes.FLOAT,

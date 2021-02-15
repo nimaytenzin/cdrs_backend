@@ -30,6 +30,10 @@ module.exports = (sequelize, DataTypes) => {
     b_wall: DataTypes.STRING,
     balcony: DataTypes.STRING,
     color: DataTypes.STRING,
+    parking: DataTypes.INTEGER,
+    res_units: DataTypes.INTEGER,
+    com_units: DataTypes.STRING,
+    off_units: DataTypes.INTEGER,
     remarks: DataTypes.STRING
   }, {
     sequelize,
