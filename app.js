@@ -17,7 +17,7 @@ app.set('view engine', 'ejs');
 
 app.use(logger('dev'));
 app.use(cors())
-app.use(bodyparser.json());
+app.use(bodyparser.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
