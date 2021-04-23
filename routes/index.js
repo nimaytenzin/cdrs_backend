@@ -142,6 +142,26 @@ router.get('/api/shapefile/get-plots/:lap_id', (req,res) => {
       })
 })
 
+router.get('/api/shapefile/get-plots/:gid', (req,res) => {
+  let gid =  req.params.gid
+  pool.query(`SELECT jsonb_build_object(
+      'type',     'FeatureCollection',
+      'features', jsonb_agg(features.feature)
+  )
+  FROM (
+    SELECT jsonb_build_object(
+      'type',       'Feature',
+      'geometry',   ST_AsGeoJSON(geom)::jsonb,
+      'properties', to_jsonb(inputs)  - 'geom'
+    ) AS feature  
+    FROM (SELECT * FROM plots_shape where gid= ${gid}) inputs) features;`, (err, results) => {
+      if (err) {
+        throw err
+      }
+      res.send(results.rows[0].jsonb_build_object)
+    })
+})
+
 //building Shapefile routes
 router.get('/api/shapefile/get-buildings/:lap_id', (req,res)=>{
   let lap_id = parseInt(req.params.lap_id)
@@ -206,6 +226,115 @@ router.get('/api/shapefile/get-footpaths/:lap_id', (req,res) => {
 })
 
 
+
+/************************** Charts Data Api ************************************* */
+
+//Get total plot count and plot area details
+router.get('/api/charts/plot_details/:lap_id', (req,res) => {
+  let lap_id =  req.params.lap_id
+  pool.query(`
+  SELECT 
+  COUNT(plots_shape.area_acres),SUM(plots_shape.area_acres)
+  FROM plots_shape  
+    WHERE plots_shape.lap_id = ${lap_id}`, (err, results) => {
+      if (err) {
+        throw err
+      }
+      res.send(results.rows[0])
+    })
+})
+
+
+// Get development status summary of laps --> plot counts 
+router.get('/api/charts/d_status_precinct/:lap_id', (req,res) => {
+  let lap_id =  req.params.lap_id
+  pool.query(`
+  SELECT 
+  plots.d_status, COUNT(plots.d_status), SUM(plots_shape.area_acres)
+  FROM plots INNER JOIN plots_shape 
+    ON plots.fid = plots_shape.gid  
+    WHERE plots.lap_id = ${lap_id} AND plots.d_status IS NOT NULL 
+  GROUP BY plots.d_status`, (err, results) => {
+      if (err) {
+        throw err
+      }
+      let labels = [];
+      let plotCounts =[];
+      let totalArea= [];
+      results.rows.forEach(element => {
+        labels.push(element.d_status);
+        plotCounts.push(element.count)
+        totalArea.push(parseFloat(element.sum).toFixed(2))
+      });
+      res.send([labels,plotCounts,totalArea])
+    })
+})
+
+//Get precinct details-> plot counts by percinct and areaa
+router.get('/api/charts/precinct_stats/:lap_id', (req,res) => {
+  let lap_id =  req.params.lap_id
+  pool.query(`
+  SELECT 
+   precinct, COUNT(precinct) as count, SUM(area_acres)
+  FROM plots_shape
+    WHERE lap_id = ${lap_id} AND precinct IS NOT NULL 
+  GROUP BY precinct ORDER BY count DESC `, (err, results) => {
+      if (err) {
+        throw err
+      }
+      let labels = [];
+      let plotCounts =[];
+      let totalArea = [];
+      results.rows.forEach(element => {
+        labels.push(element.precinct);
+        plotCounts.push(element.count)
+        totalArea.push(parseFloat(element.sum).toFixed(2))
+      });
+      console.log(totalArea)
+      res.send([labels,plotCounts,totalArea])
+    })
+})
+
+// Joined shapefile and exel table data
+router.get('/api/analysis/plots/:lap_id', (req,res) => {
+  let lap_id =  req.params.lap_id
+  pool.query(`SELECT jsonb_build_object(
+      'type',     'FeatureCollection',
+      'features', jsonb_agg(features.feature)
+  )
+  FROM (
+    SELECT jsonb_build_object(
+      'type',       'Feature',
+      'geometry',   ST_AsGeoJSON(geom)::jsonb,
+      'properties', to_jsonb(inputs)  - 'geom'
+    ) AS feature  
+    FROM (SELECT * FROM plots_shape FULL OUTER JOIN plots on plots.fid = plots_shape.gid where  plots_shape.lap_id= ${lap_id}) inputs) features;`, (err, results) => {
+      if (err) {
+        throw err
+      }
+      res.send(results.rows[0].jsonb_build_object)
+    })
+})
+
+router.get('/api/analysis/roads/:lap_id', (req,res) => {
+  let lap_id =  req.params.lap_id
+  pool.query(`SELECT jsonb_build_object(
+      'type',     'FeatureCollection',
+      'features', jsonb_agg(features.feature)
+  )
+  FROM (
+    SELECT jsonb_build_object(
+      'type',       'Feature',
+      'geometry',   ST_AsGeoJSON(geom)::jsonb,
+      'properties', to_jsonb(inputs)  - 'geom'
+    ) AS feature  
+    FROM (SELECT * FROM roads_shape FULL OUTER JOIN roads on roads.fid = roads_shape.gid where  roads_shape.lap_id= ${lap_id}) inputs) features;`, (err, results) => {
+      if (err) {
+        throw err
+      }
+      res.send(results.rows[0].jsonb_build_object)
+    })
+})
 
 
 module.exports = router;
