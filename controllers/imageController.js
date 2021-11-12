@@ -23,7 +23,7 @@ module.exports = {
     dataUrl = req.body.uri;
     let date = new Date()
 
-    let filename = "images/"+ftype+"_"+fid+ "_"+ date+".jpg"
+    let filename = "images/"+ftype+"_"+fid+".jpg"
     let m = dataUrl.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/)
     let b = Buffer.from(m[2],'base64')
     let createfile = false
