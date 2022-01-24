@@ -1,23 +1,23 @@
 {
   "development": {
     "username": "postgres",
-    "password": "overlord123",
+    "password": "covid@2020#",
     "database": "cdrs",
-    "host": "127.0.0.1",
+    "host": "172.30.20.22",
     "dialect": "postgres"
   },
   "test": {
     "username": "postgres",
-    "password": "overlord123",
+    "password": "covid@2020#",
     "database": "cdrs",
-    "host": "127.0.0.1",
+    "host": "172.30.20.22",
     "dialect": "postgres"
   },
   "production": {
-    "username":"postgres",
-    "password": "overlord123",
+    "username": "postgres",
+    "password": "covid@2020#",
     "database": "cdrs",
-    "host": "127.0.0.1",
+    "host": "172.30.20.22",
     "dialect": "postgres"
   }
 }
