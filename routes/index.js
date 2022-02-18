@@ -376,5 +376,23 @@ router.get('/api/shapefile/get-test-center/:dzo_id', (req,res) => {
     })
 })
 
+router.get('/api/shapefile/get-dzongkhags', (req,res) => {
+  pool.query(`SELECT jsonb_build_object(
+      'type',     'FeatureCollection',
+      'features', jsonb_agg(features.feature)
+  )
+  FROM (
+    SELECT jsonb_build_object(
+      'type',       'Feature',
+      'geometry',   ST_AsGeoJSON(geom)::jsonb,
+      'properties', to_jsonb(inputs)  - 'geom'
+    ) AS feature  
+    FROM (SELECT * FROM dzongkhags) inputs) features;`, (err, results) => {
+      if (err) {
+        throw err
+      }
+      res.send(results.rows[0].jsonb_build_object)
+    })
+})
 
 module.exports = router;
