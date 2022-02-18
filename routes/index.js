@@ -395,4 +395,16 @@ router.get('/api/shapefile/get-dzongkhags', (req,res) => {
     })
 })
 
+router.get('/api/shapefile/get-sheets/:dzoId', (req,res) => {
+  let dzo_id =  req.params.dzo_id;
+  pool.query(`SELECT sheetslink 
+  FROM dzongkhags where dzo_id = ${dzo_id}`, (err, results) => {
+      if (err) {
+        throw err
+      }
+      res.send(results.rows[0].jsonb_build_object)
+    })
+})
+
+
 module.exports = router;
