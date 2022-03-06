@@ -405,5 +405,46 @@ router.get('/api/shapefile/get-sheets/:dzoId', (req,res) => {
     })
 })
 
+router.get('/api/shapefile/get-redcluster-dzo/:dzo_id', (req, res) => {
+  let dzo_id = req.params.dzo_id
+  pool.query(`SELECT jsonb_build_object(
+      'type',     'FeatureCollection',
+      'features', jsonb_agg(features.feature)
+  )
+  FROM (
+    SELECT jsonb_build_object(
+      'type',       'Feature',
+      'geometry',   ST_AsGeoJSON(geom)::jsonb,
+      'properties', to_jsonb(inputs)  - 'geom'
+    ) AS feature  
+    FROM (SELECT * FROM redclusters where dzo_id= ${dzo_id}) inputs) features;`, (err, results) => {
+    if (err) {
+      throw err
+    }
+    res.send(results.rows[0].jsonb_build_object)
+  })
+})
+
+router.get('/api/shapefile/get-redcluster-zone/:subzoneId', (req, res) => {
+  let subZoneId = req.params.subzoneId
+  pool.query(`SELECT jsonb_build_object(
+      'type',     'FeatureCollection',
+      'features', jsonb_agg(features.feature)
+  )
+  FROM (
+    SELECT jsonb_build_object(
+      'type',       'Feature',
+      'geometry',   ST_AsGeoJSON(geom)::jsonb,
+      'properties', to_jsonb(inputs)  - 'geom'
+    ) AS feature  
+    FROM (SELECT * FROM redclusters where dzo_id= ${subzoneId}) inputs) features;`, (err, results) => {
+    if (err) {
+      throw err
+    }
+    res.send(results.rows[0].jsonb_build_object)
+  })
+})
+
 module.exports = router;
+
 
