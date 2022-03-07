@@ -465,6 +465,7 @@ router.get('/api/shapefile/get-redcluster/megazone/:megazone', (req, res) => {
     }
     res.send(results.rows[0].jsonb_build_object)
   })
+})
 
   // REDCLUSTER STATS
 
@@ -474,7 +475,7 @@ router.get('/api/shapefile/get-redcluster/megazone/:megazone', (req, res) => {
       if (err) {
         throw err
       }
-      res.send(results)
+      res.send(results.rows[0])
     })
   })
 
@@ -484,7 +485,7 @@ router.get('/api/shapefile/get-redcluster/megazone/:megazone', (req, res) => {
       if (err) {
         throw err
       }
-      res.send(results)
+      res.send(results.rows[0])
     })
   })
   router.get('/api/redcluster/get-stats/dzo/:dzo', (req, res) => {
@@ -493,13 +494,12 @@ router.get('/api/shapefile/get-redcluster/megazone/:megazone', (req, res) => {
       if (err) {
         throw err
       }
-      res.send(results)
+      res.send(results.rows[0])
     })
   })
 
 
   
-})
 
 module.exports = router;
 
