@@ -405,7 +405,7 @@ router.get('/api/shapefile/get-sheets/:dzoId', (req,res) => {
     })
 })
 
-router.get('/api/shapefile/get-redcluster-dzo/:dzo_id', (req, res) => {
+router.get('/api/shapefile/get-redcluster/dzo/:dzo_id', (req, res) => {
   let dzo_id = req.params.dzo_id
   pool.query(`SELECT jsonb_build_object(
       'type',     'FeatureCollection',
@@ -425,7 +425,7 @@ router.get('/api/shapefile/get-redcluster-dzo/:dzo_id', (req, res) => {
   })
 })
 
-router.get('/api/shapefile/get-redcluster-zone/:subzoneId', (req, res) => {
+router.get('/api/shapefile/get-redcluster/sub-zone/:subzoneId', (req, res) => {
   let subZoneId = req.params.subzoneId
   pool.query(`SELECT jsonb_build_object(
       'type',     'FeatureCollection',
@@ -445,7 +445,7 @@ router.get('/api/shapefile/get-redcluster-zone/:subzoneId', (req, res) => {
   })
 
 
-  router.get('/api/shapefile/get-redcluster-zone/:megazoneId', (req, res) => {
+  router.get('/api/shapefile/get-redcluster/mega-zone/:megazoneId', (req, res) => {
     let megazoneId = req.params.megazoneId
     pool.query(`SELECT jsonb_build_object(
         'type',     'FeatureCollection',
