@@ -26,6 +26,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
 require("dotenv").config();
+console.log("Server started on port ",process.env.PORT)
 console.log(process.env.DB_USER)
 
 
