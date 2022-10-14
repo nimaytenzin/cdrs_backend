@@ -31,7 +31,7 @@ module.exports = {
     //get specific plot based on the unquie gid for each lap
     getSpecific(req, res){
         return plot
-            .findAll({
+            .findOne({
                 where: {
                     fid: req.params.fid
                   }
