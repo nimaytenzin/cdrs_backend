@@ -73,7 +73,7 @@ router.put('/api/buildings/update-building/:building_id', buildingController.upd
 router.put('/api/plots/set-done/:object_id', (req, res) => {
   let object_id = parseInt(req.params.object_id)
   pool.query(`
-  UPDATE plots_shape SET done = 'true' WHERE  object_id = ${object_id}
+  UPDATE plots_shape SET done = 'true' WHERE  gid = ${object_id}
   `, (err, ress) => {
     if (err) {
       throw err
