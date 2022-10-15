@@ -21,7 +21,7 @@ app.use(bodyparser.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.static('images'))
+app.use('/images',express.static('images'))
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
