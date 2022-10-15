@@ -24,7 +24,7 @@ module.exports = {
     const d = new Date();
     let time = d.getTime();
 
-    let filename = "images/"+ftype+fid+time+".jpg"
+    let filename = "images/"+ftype+fid+"_"+time+".jpg"
     let m = dataUrl.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/)
     let b = Buffer.from(m[2],'base64')
     let createfile = false
