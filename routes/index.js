@@ -85,7 +85,7 @@ router.put('/api/plots/set-done/:object_id', (req, res) => {
 router.put('/api/roads/set-done/:object_id', (req, res) => {
   let object_id = parseInt(req.params.object_id)
   pool.query(`
-  UPDATE roads_shape SET done = 'true' WHERE  object_id = ${object_id}
+  UPDATE roads_shape SET done = 'true' WHERE  gid = ${object_id}
   `, (err, ress) => {
     if (err) {
       throw err
@@ -109,7 +109,7 @@ router.put('/api/buildings/set-done/:building_id', (req, res) => {
 router.put('/api/footpaths/set-done/:object_id', (req, res) => {
   let object_id = parseInt(req.params.object_id)
   pool.query(`
-  UPDATE footpaths_shape SET done = 'true' WHERE  object_id = ${object_id}
+  UPDATE footpaths_shape SET done = 'true' WHERE  gid = ${object_id}
   `, (err, ress) => {
     if (err) {
       throw err
