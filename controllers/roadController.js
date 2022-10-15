@@ -34,10 +34,6 @@ module.exports = {
     },
 
     update(req,res){
-        console.log("UPDARING ROADS\n")
-        console.log(req.body)
-        console.log(req.params.fid)
-        console.log("\n")
         return road  
             .findOne({
                 where: {
@@ -49,16 +45,9 @@ module.exports = {
                     .update({
                         d_status: req.body.d_status,
                         t_flow:req.body.t_flow,
-                        row: req.body.row,
-                        lanes: req.body.lanes,
                         carriage_width: req.body.carriage_width,
-                        median: req.body.median,
-                        parking_left: req.body.parking_left,
-                        parking_right: req.body.parking_right,
                         path_left:req.body.path_left,
                         path_right: req.body.path_right,
-                        light_left: req.body.light_left,
-                        light_right: req.body.light_right,
                         drains_left: req.body.drains_left,
                         drains_right: req.body.drains_right,
                         remarks: req.body.remarks
