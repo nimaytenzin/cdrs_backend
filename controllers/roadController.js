@@ -34,6 +34,10 @@ module.exports = {
     },
 
     update(req,res){
+        console.log("UPDARING ROADS\n")
+        console.log(req.body)
+        console.log(req.params.fid)
+        console.log("\n")
         return road  
             .findOne({
                 where: {
