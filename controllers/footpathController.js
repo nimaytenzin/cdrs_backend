@@ -27,7 +27,7 @@ module.exports = {
 
     getSpecific(req, res){
         return footpath
-            .findAll({
+            .findOne({
                 where: {
                     fid: req.params.fid
                   }
