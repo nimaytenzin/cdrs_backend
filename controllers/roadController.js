@@ -41,7 +41,7 @@ module.exports = {
         return road  
             .findOne({
                 where: {
-                    fid: parseInt(req.params.fid)
+                    fid: Number(req.params.fid)
                   }
             })
             .then(data => {
@@ -63,7 +63,7 @@ module.exports = {
                         drains_right: req.body.drains_right,
                         remarks: req.body.remarks
                     })
-                res.send({status:"success", data:plotData})
+                res.send({status:"success", data:data})
                 
             })
            
