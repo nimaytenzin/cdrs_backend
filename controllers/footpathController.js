@@ -40,18 +40,15 @@ module.exports = {
         return footpath  
             .findOne({
                 where: {
-                    fid: parseInt(req.params.fid)
+                    fid: Number(req.params.fid)
                 }
             })
             .then(footpathData => {
                 footpathData
                     .update({
-                        fid: req.body.fid,
-                        lap_id:req.body.lap_id,
+                       
                         d_status: req.body.d_status,
                         width: req.body.width,
-                        lighting: req.body.lighting,
-                        friendliness: req.body.friendliness,
                         remarks: req.body.remarks
                     })
                 res.send({status:"success", data:plotData})
