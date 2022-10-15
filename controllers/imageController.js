@@ -21,7 +21,6 @@ module.exports = {
     let fid =req.body.fid;
     let ftype = req.body.ftype;
     dataUrl = req.body.uri;
-    let date = new Date()
 
     let filename = "images/"+ftype+"_"+fid+".jpg"
     let m = dataUrl.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/)

@@ -68,7 +68,7 @@ module.exports = {
 
     getSpecific(req, res){
         return road
-            .findAll({
+            .findOne({
                 where: {
                     fid: parseInt(req.params.fid)
                   }
