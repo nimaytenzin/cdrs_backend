@@ -180,7 +180,7 @@ router.put('/api/proposals/set-done/:gid', (req, res) => {
 })
 
 router.put('/api/proposals/updateRemarks', (req, res) => {
-  console.log("UPDAING PROPOSAL SHAPEFILE", req)
+  console.log("UPDAING PROPOSAL SHAPEFILE", req.body)
   let object_id = parseInt(req.body.object_id)
   pool.query(`
   UPDATE proposals_shape SET done = 'true' WHERE  gid = ${object_id}
