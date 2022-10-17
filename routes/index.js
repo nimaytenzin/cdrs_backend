@@ -10,7 +10,9 @@ const imageController = require('../controllers/imageController')
 const { pool } = require('../dbconfig');
 const buildingController = require('../controllers/buildingController');
 const pointController = require('../controllers/pointController');
+const proposalController = require('../controllers/proposalController')
 const point = require('../src/models/point');
+
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
@@ -42,6 +44,11 @@ router.get('/api/footpaths/get-all', footpathController.list);
 router.post('/api/footpaths/add-path', footpathController.add);
 router.get('/api/footpaths/get-path/:fid', footpathController.getSpecific);
 router.put('/api/footpaths/update-path/:fid', footpathController.update)
+
+/********************** Proposal TABLE ROUTES ******************************************** */
+router.post('/api/proposals/add-proposal', proposalController.add);
+router.get('/api/proposals/get-proposal/:fid', proposalController.getSpecific);
+router.put('/api/proposals/update-proposal/:fid', proposalController.update)
 
 //
 router.get('/api/buildings/get-all/:lap_id', (req, res) => {
