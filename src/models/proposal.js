@@ -14,13 +14,13 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   };
-  thromdes.init({
+  proposals.init({
     fid: DataTypes.INTEGER,
     lap_id: DataTypes.INTEGER,
     remarks: DataTypes.TEXT
   }, {
     sequelize,
-    modelName: 'thromdes',
+    modelName: 'proposals',
   });
-  return thromdes;
+  return proposals;
 };
