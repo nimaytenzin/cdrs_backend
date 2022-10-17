@@ -143,8 +143,44 @@ router.get('/api/shapefile/get-plots/:lap_id', (req, res) => {
 })
 
 
-
+//get PRopoposals Shape
 router.get('/api/shapefile/get-proposals/:lap_id', (req, res) => {
+  let lap_id = req.params.lap_id
+  pool.query(`SELECT jsonb_build_object(
+        'type',     'FeatureCollection',
+        'features', jsonb_agg(features.feature)
+    )
+    FROM (
+      SELECT jsonb_build_object(
+        'type',       'Feature',
+        'geometry',   ST_AsGeoJSON(geom)::jsonb,
+        'properties', to_jsonb(inputs)  - 'geom'
+      ) AS feature  
+      FROM (SELECT * FROM proposals_shape where lap_id= ${lap_id}) inputs) features;`, (err, results) => {
+    if (err) {
+      throw err
+    }
+    res.send(results.rows[0].jsonb_build_object)
+  })
+})
+
+//setProposals Done
+router.put('/api/proposals/set-done/:object_id', (req, res) => {
+  let object_id = parseInt(req.params.object_id)
+  pool.query(`
+  UPDATE proposals_shape SET done = 'true' WHERE  gid = ${object_id}
+  `, (err, ress) => {
+    if (err) {
+      throw err
+    }
+    res.send(ress)
+  });
+})
+
+
+
+//get Wetlands Shape
+router.get('/api/shapefile/get-wetlands/:lap_id', (req, res) => {
   let lap_id = req.params.lap_id
   pool.query(`SELECT jsonb_build_object(
         'type',     'FeatureCollection',
