@@ -44,10 +44,6 @@ router.post('/api/footpaths/add-path', footpathController.add);
 router.get('/api/footpaths/get-path/:fid', footpathController.getSpecific);
 router.put('/api/footpaths/update-path/:fid', footpathController.update)
 
-/********************** Proposal TABLE ROUTES ******************************************** */
-router.post('/api/proposals/add-proposal', proposalController.add);
-router.get('/api/proposals/get-proposal/:fid', proposalController.getSpecific);
-router.put('/api/proposals/update-proposal/:fid', proposalController.update)
 
 //
 router.get('/api/buildings/get-all/:lap_id', (req, res) => {
