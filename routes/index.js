@@ -142,6 +142,29 @@ router.get('/api/shapefile/get-plots/:lap_id', (req, res) => {
   })
 })
 
+
+
+router.get('/api/shapefile/get-proposals/:lap_id', (req, res) => {
+  let lap_id = req.params.lap_id
+  pool.query(`SELECT jsonb_build_object(
+        'type',     'FeatureCollection',
+        'features', jsonb_agg(features.feature)
+    )
+    FROM (
+      SELECT jsonb_build_object(
+        'type',       'Feature',
+        'geometry',   ST_AsGeoJSON(geom)::jsonb,
+        'properties', to_jsonb(inputs)  - 'geom'
+      ) AS feature  
+      FROM (SELECT * FROM proposals_shape where lap_id= ${lap_id}) inputs) features;`, (err, results) => {
+    if (err) {
+      throw err
+    }
+    res.send(results.rows[0].jsonb_build_object)
+  })
+})
+
+
 router.get('/api/shapefile/get-plots/:gid', (req, res) => {
   let gid = req.params.gid
   pool.query(`SELECT jsonb_build_object(
