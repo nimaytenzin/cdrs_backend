@@ -168,9 +168,8 @@ router.get('/api/shapefile/get-proposals/:lap_id', (req, res) => {
 
 //setProposals Done
 router.put('/api/proposals/set-done/:gid', (req, res) => {
-  let object_id = parseInt(req.params.object_id)
   pool.query(`
-  UPDATE proposals_shape SET done = 'true' WHERE  gid = ${object_id}
+  UPDATE proposals_shape SET done = 'true' WHERE  gid = ${parseInt(req.params.gid)}
   `, (err, ress) => {
     if (err) {
       throw err
