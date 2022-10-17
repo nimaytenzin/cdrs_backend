@@ -191,10 +191,8 @@ router.put('/api/proposals/updateRemarks', (req, res) => {
 })
 
 router.get('/api/proposals/getDetails/:gid', (req, res) => {
- 
   pool.query(`
-  SELECT * from proposals_shape  WHERE  gid = ${parseInt(req.params.gid)}
-  `, (err, ress) => {
+  SELECT * from proposals_shape  WHERE  gid = ${parseInt(req.params.gid)} LIMIT 1`, (err, ress) => {
     if (err) {
       throw err
     }
