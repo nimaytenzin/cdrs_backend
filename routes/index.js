@@ -181,7 +181,7 @@ router.put('/api/proposals/set-done/:gid', (req, res) => {
 
 router.put('/api/proposals/updateRemarks', (req, res) => {
   pool.query(`
-  UPDATE proposals_shape SET remarks =  'hello' WHERE  gid = ${Number(req.body.fid)}
+  UPDATE proposals_shape SET remarks = ${req.body.remarks.replace('"',"'")} WHERE  gid = ${Number(req.body.fid)}
   `, (err, ress) => {
     if (err) {
       throw err
