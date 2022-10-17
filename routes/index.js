@@ -10,7 +10,6 @@ const imageController = require('../controllers/imageController')
 const { pool } = require('../dbconfig');
 const buildingController = require('../controllers/buildingController');
 const pointController = require('../controllers/pointController');
-const proposalController = require('../controllers/proposalController')
 const point = require('../src/models/point');
 
 
@@ -172,8 +171,21 @@ router.get('/api/shapefile/get-proposals/:lap_id', (req, res) => {
 })
 
 //setProposals Done
-router.put('/api/proposals/set-done/:object_id', (req, res) => {
+router.put('/api/proposals/set-done/:gid', (req, res) => {
   let object_id = parseInt(req.params.object_id)
+  pool.query(`
+  UPDATE proposals_shape SET done = 'true' WHERE  gid = ${object_id}
+  `, (err, ress) => {
+    if (err) {
+      throw err
+    }
+    res.send(ress)
+  });
+})
+
+router.put('/api/proposals/updateRemarks', (req, res) => {
+  console.log("UPDAING PROPOSAL SHAPEFILE", req)
+  let object_id = parseInt(req.body.object_id)
   pool.query(`
   UPDATE proposals_shape SET done = 'true' WHERE  gid = ${object_id}
   `, (err, ress) => {
