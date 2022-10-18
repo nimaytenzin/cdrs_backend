@@ -214,12 +214,45 @@ router.get('/api/shapefile/get-wetlands/:lap_id', (req, res) => {
         'geometry',   ST_AsGeoJSON(geom)::jsonb,
         'properties', to_jsonb(inputs)  - 'geom'
       ) AS feature  
-      FROM (SELECT * FROM proposals_shape where lap_id= ${lap_id}) inputs) features;`, (err, results) => {
+      FROM (SELECT * FROM wetlands_shape where lap_id= ${lap_id}) inputs) features;`, (err, results) => {
     if (err) {
       throw err
     }
     res.send(results.rows[0].jsonb_build_object)
   })
+})
+
+//setProposals Done
+router.put('/api/wetlands/set-done/:gid', (req, res) => {
+  pool.query(`
+  UPDATE wetlands_shape SET done = 'true' WHERE  gid = ${parseInt(req.params.gid)}
+  `, (err, ress) => {
+    if (err) {
+      throw err
+    }
+    res.send(ress)
+  });
+})
+
+router.put('/api/wetlands/updateRemarks', (req, res) => {
+  pool.query(`
+  UPDATE wetlands_shape SET remarks = $1  WHERE  gid = ${Number(req.body.fid)}
+  `,[req.body.remarks], (err, ress) => {
+    if (err) {
+      throw err
+    }
+    res.send(ress)
+  });
+})
+
+router.get('/api/wetlands/getDetails/:gid', (req, res) => {
+  pool.query(`
+  SELECT * from wetlands_shape  WHERE  gid = ${parseInt(req.params.gid)} LIMIT 1`, (err, ress) => {
+    if (err) {
+      throw err
+    }
+    res.send(ress)
+  });
 })
 
 
